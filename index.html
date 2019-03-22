@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>newAlert Demo</title>
+
+    <!-- Boostrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- newAlert JS-->
+    <script src="./js/newAlert.js"></script>
+
+    <!-- newAlert CSS -->
+    <link rel="stylesheet" href="./css/newAlert.css">
+
+</head>
+<body>
+    <!-- HTML BASE CODE -->
+    <div id="alertDIV">
+        <div id="content">
+            <span id="icon"></span>
+            <span id="text"></span>
+            <span id="close" onclick="closeAlert()"><i class="fas fa-times"></i></span>
+        </div>
+    </div>
+    <!-- END HTML BASE CODE -->
+    <div class="container">
+        <p style="font-size: 20px;margin-top:40px;">This is just a demonstration</p>
+        <div class="form-group">
+            <label for="icons">Icon</label>
+            <select class="form-control" id="icons" name="icons">
+                <option value="check">Check </option>
+                <option value="exclamation">Exclamation </option>
+                <option value="triangle">Triangle </option>
+                <option value="exclamation-c">Exclamation-Circle </option>
+                <option value="bell">Bell </option>
+                <option value="bell-slash">Bell-Slash </option>
+                <option value="block">Block </option>
+                <option value="comment">Comment </option>
+                <option value="comments">Comments </option>
+                <option value="times">Times </option>
+            </select>
+            <small id="iconS">Selected : <i class="fas fa-check"></i></small>
+        </div>
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" id="type" name="type">
+                <option value="warning">Warning </option>
+                <option value="danger">Danger </option>
+                <option value="success">Success </option>
+                <option value="grey">Grey </option>
+                <option value="dark">Dark </option>
+            </select>
+            <small id="typeS">Selected : <i class="bg bg-warning">         </i></small>
+        </div>
+        <div class="form-group">
+                <label for="textAlert">Text</label>
+                <input type="text" id="textAlert" class="form-control" placeholder="Text of the alert">
+                <sub id="textAlertS"></sub>
+        </div>
+        <div class="form-group">
+                <label for="time">Time to dismiss</label>
+                <input type="number" id="time" class="form-control" placeholder="Time in secounds">
+                <sub>If null, it will be 15 secounds
+        </div>
+        <div class="form-group">
+            <label for="dismiss">Dismiss button</label>
+            <select class="form-control" id="dismiss" name="dismiss">
+                <option value="true">True </option>
+                <option value="false">False </option>
+            </select>
+        </div>
+
+        <button class="btn btn-success" onclick="run()">Run</button>
+        <button class="btn btn-dark" onclick="reset()">Reset</button>
+    </div>
+    <script style="text/javascript">
+
+        $(document).ready(function(){
+            $('#icons').change(function(){
+                icon = $('#icons').val();
+
+                if(icon == 'check'){
+                    icon = '<i class="fas fa-check"></i>';
+                }
+                if(icon == 'exclamation'){
+                    icon = '<i class="fas fa-exclamation"></i>';
+                }
+                if(icon == 'triangle'){
+                    icon = '<i class="fas fa-exclamation-triangle"></i>';
+                }
+                if(icon == 'exclamation-c'){
+                    icon = '<i class="fas fa-exclamation-circle"></i>';
+                }
+                if(icon == 'bell'){
+                    icon = '<i class="fas fa-bell"></i>';
+                }
+                if(icon == 'bell-slash'){
+                    icon = '<i class="fas fa-bell-slash"></i>';
+                }
+                if(icon == 'block'){
+                    icon = '<i class="fas fa-ban"></i>';
+                }
+                if(icon == 'comment'){
+                    icon = '<i class="fas fa-comment"></i>';
+                }
+                if(icon == 'comments'){
+                    icon = '<i class="fas fa-comments"></i>';
+                }
+                if(icon == 'times'){
+                    icon = '<i class="fas fa-times"></i>';
+                }
+                $('#iconS').html('Selected : '+ icon);
+            });
+
+            $('#type').change(function(){
+                bg = $('#type').val();
+
+                if(bg == 'warning'){
+                    bg = 'Selected : <i class="bg bg-warning">         </i>';
+                }
+                if(bg == 'danger'){
+                    bg = 'Selected : <i class="bg bg-danger">         </i>';
+                }
+                if(bg == 'success'){
+                    bg = 'Selected : <i class="bg bg-success">         </i>';
+                }
+                if(bg == 'grey'){
+                    bg = 'Selected : <i class="bg bg-grey">         </i>';
+                    setTimeout(() => {
+                        $('.bg-grey').css('background-color','rgba(213, 219, 229)'); 
+                    }, 10);
+                    
+                }
+                if(bg == 'dark'){
+                    bg = 'Selected : <i class="bg bg-dark">         </i>';
+                }
+                console.log(bg);
+                $('#typeS').html(bg);
+            });
+        });
+
+        function run(){
+            var icon = $('#icons').val();
+            var type = $('#type').val();
+            var text = $('#textAlert').val();
+            var dismiss = $('#time').val();
+            var button = $('#dismiss').val();
+
+            if(text == ''){
+                $('#textAlert').addClass('is-invalid');
+                $('#textAlertS').html('Required');
+                return;
+            }
+
+            newAlert(icon, type, text, dismiss, button);
+        }
+
+        function reset(){
+            $('#icons').val('check');
+            $('#type').val('warning');
+            $('#textAlert').val('');
+            $('#time').val('');
+            $('#dismiss').val('true');
+        }
+    </script>
+</body>
+</html>
