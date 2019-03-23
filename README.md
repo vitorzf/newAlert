@@ -2,25 +2,25 @@
 A personalizable alert using HTML CSS and JavaScript
 
 # Required 
--Bootstrap 4
--FontAwesome 5
--jQuery 3.6
+- Bootstrap 4
+- FontAwesome 5
+- jQuery 3.6
 
 # Getting Started
 
 ###### Download and add it to your project
 ```
-    <script src="./js/newAlert.js"></script>
+<script src="./js/newAlert.js"></script>
 
-    <link rel="stylesheet" href="./css/newAlert.css">
+<link rel="stylesheet" href="./css/newAlert.css">
 ```
 
 There are 5 paramethers
--Icon 
--Type
--Text
--Time
--Dismiss
+- Icon 
+- Type
+- Text
+- Time
+- Dismiss
 
 ###### Icon
 Icon of the alert, it could be:
